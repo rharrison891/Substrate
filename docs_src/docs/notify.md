@@ -25,7 +25,11 @@ protected void OnPropertyChanged(string propertyName)
 ```
 With [Notify], you simply declare the backing field:
 ```csharp 
-public partial class Person { [Notify] private string _name; } 
+public partial class Person 
+{ 
+    [Notify] 
+    private string _name; 
+} 
 ```
 The generator creates the property, backing logic, and notification code automatically.
 ## 🎯 Benefits
