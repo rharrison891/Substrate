@@ -61,18 +61,23 @@ Generated code is placed in a .g.cs file — do not edit it
 
 ## 📄 How Notify Works 
 When you mark a backing field with [Notify], the generator:
+
 - Ensures the type implements INotifyPropertyChanged
 - Generates a public property for the field
 - Raises OnPropertyChanged when the value changes
 - Skips notifications when the value hasn’t changed
 - (Optional) generates strongly-typed change hooks
 
+
 If hooks are enabled for the field, the following methods are available:
+
 - OnXChanging(oldValue, ref newValue, ref cancel)
 - OnXChanged(oldValue, newValue)
 
 Use these to:
+
 - validate and cancel changes
 - modify the incoming value (coercion)
 - react to changes after assignment
+
 The final property change event is raised only after the value is successfully updated.

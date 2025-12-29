@@ -585,20 +585,26 @@ The generator produces something like:</p>
 Requires INotifyPropertyChanged support in your base type
 Generated code is placed in a .g.cs file — do not edit it</p>
 <h2 id="how-notify-works">📄 How Notify Works</h2>
-<p>When you mark a backing field with [Notify], the generator:
-- Ensures the type implements INotifyPropertyChanged
-- Generates a public property for the field
-- Raises OnPropertyChanged when the value changes
-- Skips notifications when the value hasn’t changed
-- (Optional) generates strongly-typed change hooks</p>
-<p>If hooks are enabled for the field, the following methods are available:
-- OnXChanging(oldValue, ref newValue, ref cancel)
-- OnXChanged(oldValue, newValue)</p>
-<p>Use these to:
-- validate and cancel changes
-- modify the incoming value (coercion)
-- react to changes after assignment
-The final property change event is raised only after the value is successfully updated.</p>
+<p>When you mark a backing field with [Notify], the generator:</p>
+<ul>
+<li>Ensures the type implements INotifyPropertyChanged</li>
+<li>Generates a public property for the field</li>
+<li>Raises OnPropertyChanged when the value changes</li>
+<li>Skips notifications when the value hasn’t changed</li>
+<li>(Optional) generates strongly-typed change hooks</li>
+</ul>
+<p>If hooks are enabled for the field, the following methods are available:</p>
+<ul>
+<li>OnXChanging(oldValue, ref newValue, ref cancel)</li>
+<li>OnXChanged(oldValue, newValue)</li>
+</ul>
+<p>Use these to:</p>
+<ul>
+<li>validate and cancel changes</li>
+<li>modify the incoming value (coercion)</li>
+<li>react to changes after assignment</li>
+</ul>
+<p>The final property change event is raised only after the value is successfully updated.</p>
 
 
 
