@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/docs/">
+    <File Path="index.html" />
+  </Folder>
+  <Folder Name="/docs/Images/">
+    <File Path="../../../Pictures/Substrate200.png" />
+  </Folder>
   <Project Path="src/Substrate.Generation.Attributes/Substrate.Generation.Attributes.csproj" />
   <Project Path="src/Substrate.Generation.Test/Substrate.Generation.Test.csproj" />
   <Project Path="src/Substrate.Generation/Substrate.Generation.Core.csproj" />
