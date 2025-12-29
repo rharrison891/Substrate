@@ -2,6 +2,9 @@ site_name: Substrate Docs
 site_dir: ../docs
 theme:
   name: material
+  palette:
+    primary: black
+    accent: purple
 nav:
   - Home: index.md
   - Attributes:
