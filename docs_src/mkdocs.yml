@@ -1,5 +1,7 @@
 site_name: Substrate Docs
 site_dir: ../docs
+markdown_extensions:
+  - attr_list
 theme:
   name: material
   palette:
