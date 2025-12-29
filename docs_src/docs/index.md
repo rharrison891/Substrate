@@ -1,5 +1,3 @@
-![Logo](..assets/images/Substrate200.png){ width=180 }
-
 # Substrate
 
 Tools & automation for developers and businesses.
