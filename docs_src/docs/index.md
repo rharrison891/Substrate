@@ -1,3 +1,5 @@
+![Logo](images/Substrate200.png)
+
 # Substrate
 
 Tools & automation for developers and businesses.
