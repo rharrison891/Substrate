@@ -1,0 +1,9 @@
+site_name: Substrate Docs
+site_dir: ../docs
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Attributes:
+      - Notify: notify.md
+      - Dependency Property: dependency-property.md
