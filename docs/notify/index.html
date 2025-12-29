@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#what-it-does" class="md-skip">
+        <a href="#notify-attribute" class="md-skip">
           Skip to content
         </a>
       
@@ -278,6 +278,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -319,6 +321,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -365,6 +369,17 @@
     <span class="md-ellipsis">
       
         📌 Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-notify-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 How Notify Works
       
     </span>
   </a>
@@ -432,6 +447,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -483,6 +500,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how-notify-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 How Notify Works
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -500,10 +528,8 @@
 
 
 
-  <h1>Notify</h1>
-
-<p>Notify Attribute
-The [Notify] attribute generates boilerplate for property change
+<h1 id="notify-attribute">Notify Attribute</h1>
+<p>The [Notify] attribute generates boilerplate for property change
 notification, so you don’t have to manually write INotifyPropertyChanged
 logic.
 It is designed for MVVM scenarios where you want clean view-models without repeating the same patterns.</p>
@@ -558,6 +584,21 @@ The generator produces something like:</p>
 <p>Works in any class marked partial
 Requires INotifyPropertyChanged support in your base type
 Generated code is placed in a .g.cs file — do not edit it</p>
+<h2 id="how-notify-works">📄 How Notify Works</h2>
+<p>When you mark a backing field with [Notify], the generator:
+- Ensures the type implements INotifyPropertyChanged
+- Generates a public property for the field
+- Raises OnPropertyChanged when the value changes
+- Skips notifications when the value hasn’t changed
+- (Optional) generates strongly-typed change hooks</p>
+<p>If hooks are enabled for the field, the following methods are available:
+- OnXChanging(oldValue, ref newValue, ref cancel)
+- OnXChanged(oldValue, newValue)</p>
+<p>Use these to:
+- validate and cancel changes
+- modify the incoming value (coercion)
+- react to changes after assignment
+The final property change event is raised only after the value is successfully updated.</p>
 
 
 

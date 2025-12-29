@@ -1,4 +1,4 @@
-﻿Notify Attribute
+﻿# Notify Attribute
 The [Notify] attribute generates boilerplate for property change
 notification, so you don’t have to manually write INotifyPropertyChanged
 logic.
@@ -58,3 +58,21 @@ The exact output may vary slightly, but the behavior is always the same.
 Works in any class marked partial
 Requires INotifyPropertyChanged support in your base type
 Generated code is placed in a .g.cs file — do not edit it
+
+## 📄 How Notify Works 
+When you mark a backing field with [Notify], the generator:
+- Ensures the type implements INotifyPropertyChanged
+- Generates a public property for the field
+- Raises OnPropertyChanged when the value changes
+- Skips notifications when the value hasn’t changed
+- (Optional) generates strongly-typed change hooks
+
+If hooks are enabled for the field, the following methods are available:
+- OnXChanging(oldValue, ref newValue, ref cancel)
+- OnXChanged(oldValue, newValue)
+
+Use these to:
+- validate and cancel changes
+- modify the incoming value (coercion)
+- react to changes after assignment
+The final property change event is raised only after the value is successfully updated.
