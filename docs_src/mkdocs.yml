@@ -4,6 +4,7 @@ theme:
   name: material
 nav:
   - Home: index.md
+  - Landing: landing.md
   - Attributes:
       - Notify: notify.md
       - Dependency Property: dependency-property.md
