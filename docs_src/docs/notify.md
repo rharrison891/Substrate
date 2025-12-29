@@ -60,19 +60,19 @@ Requires INotifyPropertyChanged support in your base type
 Generated code is placed in a .g.cs file — do not edit it
 
 ## 📄 How Notify Works 
-When you mark a backing field with [Notify], the generator:
+When you mark a backing field with `[Notify]`, the generator:
 
-- Ensures the type implements INotifyPropertyChanged
+- Ensures the type implements `INotifyPropertyChanged`
 - Generates a public property for the field
-- Raises OnPropertyChanged when the value changes
+- Raises 'OnPropertyChanged' when the value changes
 - Skips notifications when the value hasn’t changed
 - (Optional) generates strongly-typed change hooks
 
 
 If hooks are enabled for the field, the following methods are available:
 
-- OnXChanging(oldValue, ref newValue, ref cancel)
-- OnXChanged(oldValue, newValue)
+- `OnXChanging(oldValue, ref newValue, ref cancel)`
+- `OnXChanged(oldValue, newValue)`
 
 Use these to:
 

@@ -585,18 +585,18 @@ The generator produces something like:</p>
 Requires INotifyPropertyChanged support in your base type
 Generated code is placed in a .g.cs file — do not edit it</p>
 <h2 id="how-notify-works">📄 How Notify Works</h2>
-<p>When you mark a backing field with [Notify], the generator:</p>
+<p>When you mark a backing field with <code>[Notify]</code>, the generator:</p>
 <ul>
-<li>Ensures the type implements INotifyPropertyChanged</li>
+<li>Ensures the type implements <code>INotifyPropertyChanged</code></li>
 <li>Generates a public property for the field</li>
-<li>Raises OnPropertyChanged when the value changes</li>
+<li>Raises 'OnPropertyChanged' when the value changes</li>
 <li>Skips notifications when the value hasn’t changed</li>
 <li>(Optional) generates strongly-typed change hooks</li>
 </ul>
 <p>If hooks are enabled for the field, the following methods are available:</p>
 <ul>
-<li>OnXChanging(oldValue, ref newValue, ref cancel)</li>
-<li>OnXChanged(oldValue, newValue)</li>
+<li><code>OnXChanging(oldValue, ref newValue, ref cancel)</code></li>
+<li><code>OnXChanged(oldValue, newValue)</code></li>
 </ul>
 <p>Use these to:</p>
 <ul>

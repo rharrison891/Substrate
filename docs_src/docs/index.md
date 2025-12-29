@@ -1,4 +1,4 @@
-![Logo](images/Substrate200.png)
+![Logo](images/SubstrateNew.png){width=150}
 
 # Substrate
 
