@@ -5,6 +5,7 @@ markdown_extensions:
 theme:
   name: material
   palette:
+    scheme: slate
     primary: black
     accent: purple
 nav:
