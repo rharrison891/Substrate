@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#what-it-does" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -274,6 +279,24 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notify
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -290,6 +313,67 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✨ What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Benefits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 Generated property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -349,6 +433,58 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✨ What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Benefits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 Generated property
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -366,7 +502,58 @@
 
   <h1>Notify</h1>
 
+<p>Notify Attribute
+The [Notify] attribute generates boilerplate for property change
+notification, so you don’t have to manually write INotifyPropertyChanged
+logic.
+It is designed for MVVM scenarios where you want clean view-models without repeating the same patterns.</p>
+<h2 id="what-it-does">✨ What it does</h2>
+<p>Normally you would write:</p>
+<pre><code class="language-csharp">public class Person : INotifyPropertyChanged { private string _name;
+public string Name
+{
+    get =&gt; _name;
+    set
+    {
+        if (_name == value) return;
 
+        _name = value;
+        OnPropertyChanged(nameof(Name));
+    }
+}
+public event PropertyChangedEventHandler? PropertyChanged;
+protected void OnPropertyChanged(string propertyName)
+    =&gt; PropertyChanged?.Invoke(this, new(propertyName));
+}
+</code></pre>
+<p>With [Notify], you simply declare the backing field:</p>
+<pre><code class="language-csharp">public partial class Person { [Notify] private string _name; } 
+</code></pre>
+<p>The generator creates the property, backing logic, and notification code automatically.</p>
+<h2 id="benefits">🎯 Benefits</h2>
+<p>No duplicated OnPropertyChanged code
+Strongly-typed, compiler-generated properties
+Easier refactoring (rename the field → property updates automatically)
+Less noise in your view-models</p>
+<h2 id="generated-property">🔎 Generated property</h2>
+<p>From the field:
+<code>[Notify] private string _name;</code>
+The generator produces something like:</p>
+<pre><code class="language-csharp">public string Name { 
+    get =&gt; _name; 
+    set 
+    { 
+        if (_name == value) return;
+        _name = value;
+        OnPropertyChanged(nameof(Name));
+    }
+} 
+</code></pre>
+<p>The exact output may vary slightly, but the behavior is always the same.</p>
+<h2 id="notes">📌 Notes</h2>
+<p>Works in any class marked partial
+Requires INotifyPropertyChanged support in your base type
+Generated code is placed in a .g.cs file — do not edit it</p>
 
 
 
