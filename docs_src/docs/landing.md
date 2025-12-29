@@ -1,1 +1,1 @@
-![Logo](../images/Substrate200.png){ width=180 }
+![Logo](assets/images/Substrate200.png){ width=180 }
