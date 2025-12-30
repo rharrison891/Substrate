@@ -1,7 +1,16 @@
 site_name: Substrate Docs
 site_dir: ../docs
 markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
   - attr_list
+  - md_in_html
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 theme:
   name: material
   palette:
@@ -13,3 +22,6 @@ nav:
   - Attributes:
       - Notify: notify.md
       - Dependency Property: dependency-property.md
+site_description: Automating the boring parts of WPF development.
+repo_url: https://github.com/rharrison891/Substrate
+repo_name: GitHub
