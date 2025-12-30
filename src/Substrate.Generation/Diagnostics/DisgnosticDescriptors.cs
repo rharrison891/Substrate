@@ -1,7 +1,16 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 
 internal static class DiagnosticDescriptors
 {
+    internal static readonly DiagnosticDescriptor LogEntry =
+        new(
+            id: "LOG001",
+            title: "Test log",
+            messageFormat: "[{0}]",
+            category: "Substrate.Log",
+            DiagnosticSeverity.Warning,
+            isEnabledByDefault: true);
+
     internal static readonly DiagnosticDescriptor NotifyFieldShouldBePrivate =
         new(
             id: "SUB001",
@@ -28,4 +37,24 @@ internal static class DiagnosticDescriptors
             category: "Substrate.DependencyProperty",
             DiagnosticSeverity.Info,
             isEnabledByDefault: true);
+
+    internal static readonly DiagnosticDescriptor MultipleThemeClassesDetected =
+        new(
+            id: "SUB030",
+            title: "Multiple Theme Classes Detected",
+            messageFormat: "Only 1 [Theme] class is allowed in a project",
+            category: "Substrate.Theme",
+            DiagnosticSeverity.Error,
+            isEnabledByDefault: true);
+
+    internal static readonly DiagnosticDescriptor InvalidColorEntry =
+        new(
+            id: "SUB031",
+            title: "Invalid color entry",
+            messageFormat: "Theme entry '{0}' is not a valid hex or Color.FromArgb value",
+            category: "Substrate.Theme",
+            DiagnosticSeverity.Warning,
+            isEnabledByDefault: true);
+
+
 }

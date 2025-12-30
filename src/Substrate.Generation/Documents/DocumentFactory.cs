@@ -1,4 +1,4 @@
-﻿using Substrate.Generation.Core.Nodes;
+using Substrate.Generation.Core.Nodes;
 
 namespace Substrate.Generation.Core.Documents
 {
@@ -8,6 +8,9 @@ namespace Substrate.Generation.Core.Documents
             TypeKey key,
             IReadOnlyList<SubstrateNode> nodes)
         {
+            if (nodes.Any(n => n is ThemeNode))
+                return new ThemeDocument(key, nodes);
+
             return new TypeDocument(key, nodes);
         }
     }

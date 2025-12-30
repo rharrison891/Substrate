@@ -1,5 +1,6 @@
-﻿using Substrate.Generation.Core.Helpers;
+using Substrate.Generation.Core.Helpers;
 using Substrate.Generation.Core.Nodes;
+
 using System.Text;
 
 namespace Substrate.Generation.Core.Documents
@@ -41,6 +42,7 @@ namespace Substrate.Generation.Core.Documents
                 }
             }
         }
+
         public override string Build()
         {
             var sb = new StringBuilder();
@@ -65,7 +67,7 @@ namespace Substrate.Generation.Core.Documents
             {
                 if (builder.HasOutput)
                 {
-                    builder.Build(sb);
+                    builder.BuildInsideClass(sb);
                 }
             }
 
@@ -73,6 +75,7 @@ namespace Substrate.Generation.Core.Documents
 
             return sb.ToString();
         }
+
         
     }
 }

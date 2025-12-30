@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Substrate.Generation.Attributes\Substrate.Generation.Attributes.csproj" />
-    <ProjectReference Include="..\Substrate.Generation\Substrate.Generation.Core.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    <ProjectReference Include="..\Substrate.Generation\Substrate.Generation.Core.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>

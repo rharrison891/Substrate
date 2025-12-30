@@ -1,4 +1,4 @@
-﻿namespace Substrate.Generation.Core.Nodes
+namespace Substrate.Generation.Core.Nodes
 {
     public abstract record SubstrateNode(
         string Namespace,
@@ -26,5 +26,11 @@
         string? DefaultValue
     ) : SubstrateNode(Namespace,TypeName);
 
-
+    public sealed record ThemeNode(
+        string Namespace,
+        string TypeName,
+        IReadOnlyList<(string Key, int A, int R, int G, int B)> Colors,
+        bool UsesFallbackPalette,
+        Microsoft.CodeAnalysis.Location? Location
+    ) : SubstrateNode(Namespace, TypeName);
 }
