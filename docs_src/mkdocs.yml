@@ -1,4 +1,4 @@
-site_name: Substrate Docs
+﻿site_name: Substrate Docs
 site_dir: ../docs
 markdown_extensions:
   - admonition
@@ -30,3 +30,10 @@ nav:
 site_description: Automating the boring parts of WPF development.
 repo_url: https://github.com/rharrison891/Substrate
 repo_name: GitHub
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rharrison891/Substrate
+copyright: >
+  © 2025 Substrate — Built with ❤️ and MkDocs.
