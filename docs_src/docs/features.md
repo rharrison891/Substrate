@@ -18,9 +18,9 @@ spend more time **designing UI** and less time wiring plumbing.
 
 ## 🛠 In progress
 
-- [ ] Control generator from XAML templates  
+- [ ] Control generator from XAML templates
 - [ ] Navigation + DI (prototype)
-- [ ] `[Report]` developer feedback system  
+- [ ] `[Report]` developer feedback system
 - [ ] Achievement / Easter-egg framework
 
 ---
