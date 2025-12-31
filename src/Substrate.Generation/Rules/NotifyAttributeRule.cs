@@ -61,6 +61,7 @@ namespace Substrate.Generation.Core.Rules
                 FieldType: fieldTypeDisplay,
                 ImplementsINotify: implementsINotify,
                 CreatePartials: createPartials,
+                Location: symbol.Locations.FirstOrDefault(),
                 Usings: usings
             );
         }

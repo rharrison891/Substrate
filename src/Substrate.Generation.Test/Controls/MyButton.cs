@@ -13,12 +13,12 @@ namespace Substrate.Generation.Test.Controls
         private readonly Brush _iconBrush;
 
         [DependencyProperty]
-        private readonly ICommand? _command;
+        private readonly ICommand _command;
 
         [DependencyProperty(IsReadOnly: true)]
         private readonly string _glyph;
 
-        [DependencyProperty(DefaultValue: nameof(Icons.Warning), HasChangeCallback: true)]
+        [DependencyProperty(DefaultValue: "Icons.Warning", HasChangeCallback: true)]
         private readonly Icons _icon;
 
         partial void OnIconChanged(Icons? oldValue, Icons? newValue)

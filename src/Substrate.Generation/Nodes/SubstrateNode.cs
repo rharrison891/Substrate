@@ -1,9 +1,12 @@
+using Microsoft.CodeAnalysis;
+
 namespace Substrate.Generation.Core.Nodes
 {
     public abstract record SubstrateNode(
         string Namespace,
         string TypeName,
-        IReadOnlyCollection<string> Usings
+        IReadOnlyCollection<string> Usings,
+        Microsoft.CodeAnalysis.Location? Location
     );
 
     public sealed record NotifyNode(
@@ -13,8 +16,9 @@ namespace Substrate.Generation.Core.Nodes
         string FieldType,
         bool ImplementsINotify,
         bool CreatePartials,
+        Microsoft.CodeAnalysis.Location? Location,
         IReadOnlyCollection<string> Usings
-    ) : SubstrateNode(Namespace, TypeName, Usings);
+    ) : SubstrateNode(Namespace, TypeName, Usings, Location);
 
     public sealed record DependencyPropertyNode(
         string Namespace,
@@ -26,8 +30,9 @@ namespace Substrate.Generation.Core.Nodes
         bool BindsTwoWayByDefault,
         bool IsReadOnly,
         string? DefaultValue,
+        Microsoft.CodeAnalysis.Location? Location,
         IReadOnlyCollection<string> Usings
-    ) : SubstrateNode(Namespace, TypeName, Usings);
+    ) : SubstrateNode(Namespace, TypeName, Usings, Location);
 
     public sealed record ThemeNode(
         string Namespace,
@@ -36,13 +41,13 @@ namespace Substrate.Generation.Core.Nodes
         bool UsesFallbackPalette,
         Microsoft.CodeAnalysis.Location? Location,
         IReadOnlyCollection<string> Usings
-    ) : SubstrateNode(Namespace, TypeName, Usings);
+    ) : SubstrateNode(Namespace, TypeName, Usings, Location);
 
     public sealed record IconPackNode(
-    string Namespace,
-    string TypeName,
-    string Pack,
-    Microsoft.CodeAnalysis.Location? Location,
-    IReadOnlyCollection<string> Usings
-    ) : SubstrateNode(Namespace, TypeName, Usings);
+        string Namespace,
+        string TypeName,
+        string Pack,
+        Microsoft.CodeAnalysis.Location? Location,
+        IReadOnlyCollection<string> Usings
+    ) : SubstrateNode(Namespace, TypeName, Usings, Location);
 }

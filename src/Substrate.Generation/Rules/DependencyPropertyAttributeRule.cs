@@ -74,6 +74,7 @@ namespace Substrate.Generation.Core.Rules
                 HasCoerceCallback: hasCoerce,
                 BindsTwoWayByDefault: bindsTwoWay,
                 IsReadOnly: isReadOnly,
+                Location: symbol.Locations.FirstOrDefault(),
                 DefaultValue: defaultValue,
                 Usings: usings
             );
