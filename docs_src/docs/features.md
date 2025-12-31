@@ -11,7 +11,7 @@ spend more time **designing UI** and less time wiring plumbing.
 - [x] Dependency Property generator
 - [x] Theme generator
 - [x] Fluent icon mapping
-- [x] Custom font support
+- [ ] Custom font support
 - [x] Docs powered by MkDocs
 
 ---

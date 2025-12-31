@@ -1,24 +1,25 @@
 ﻿# IconPack
 
-## A complete set of Icons from FluentIcons.
+## A complete set of Fluent Icons
 
-All of the icons are available through the source generator and can be easily included in your project with a simple `[IconPack]` attribute.
+All of the icons are available through the source generator and can be included
+with a simple **`[IconPack]`** attribute.
 
-This will give you 
+This generates:
 
-- `Icons` enum with ≈ 1,500 icons
-- `IconMap` dictionary to convert enm to glyph
-- `AsGlyph()` extension method
+- `Icons` enum with ≈ 1,500 icons  
+- `IconMap` dictionary to convert enum → glyph  
+- `AsGlyph()` extension method  
 - `Get()` accessor
 
-To activate the icon pack just simply create a blank class with the `[IconPack]` attribute.
+To activate, create a blank partial class:
 
 ```csharp
 [IconPack]
 public partial class AppIcons { }
 ```
 
-That's it...The generator will do everything for you, and Icons are available globally in your app.
+That's it - The generator will do the rest, and Icons are now available globally.
 
 ## Using an icon
 

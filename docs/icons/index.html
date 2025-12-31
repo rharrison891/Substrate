@@ -477,10 +477,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#a-complete-set-of-icons-from-fluenticons" class="md-nav__link">
+  <a href="#a-complete-set-of-fluent-icons" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A complete set of Icons from FluentIcons.
+        A complete set of Fluent Icons
       
     </span>
   </a>
@@ -569,10 +569,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#a-complete-set-of-icons-from-fluenticons" class="md-nav__link">
+  <a href="#a-complete-set-of-fluent-icons" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A complete set of Icons from FluentIcons.
+        A complete set of Fluent Icons
       
     </span>
   </a>
@@ -611,20 +611,21 @@
 
 
 <h1 id="iconpack">IconPack</h1>
-<h2 id="a-complete-set-of-icons-from-fluenticons">A complete set of Icons from FluentIcons.</h2>
-<p>All of the icons are available through the source generator and can be easily included in your project with a simple <code>[IconPack]</code> attribute.</p>
-<p>This will give you </p>
+<h2 id="a-complete-set-of-fluent-icons">A complete set of Fluent Icons</h2>
+<p>All of the icons are available through the source generator and can be included
+with a simple <strong><code>[IconPack]</code></strong> attribute.</p>
+<p>This generates:</p>
 <ul>
-<li><code>Icons</code> enum with ≈ 1,500 icons</li>
-<li><code>IconMap</code> dictionary to convert enm to glyph</li>
-<li><code>AsGlyph()</code> extension method</li>
+<li><code>Icons</code> enum with ≈ 1,500 icons  </li>
+<li><code>IconMap</code> dictionary to convert enum → glyph  </li>
+<li><code>AsGlyph()</code> extension method  </li>
 <li><code>Get()</code> accessor</li>
 </ul>
-<p>To activate the icon pack just simply create a blank class with the <code>[IconPack]</code> attribute.</p>
+<p>To activate, create a blank partial class:</p>
 <div class="highlight"><pre><span></span><code><span class="na">[IconPack]</span>
 <span class="k">public</span><span class="w"> </span><span class="k">partial</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">AppIcons</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p>That's it...The generator will do everything for you, and Icons are available globally in your app.</p>
+<p>That's it - The generator will do the rest, and Icons are now available globally.</p>
 <h2 id="using-an-icon">Using an icon</h2>
 <div class="highlight"><pre><span></span><code>&lt;TextBlock FontFamily=&quot;Segoe MDL2 Assets&quot;
            Text=&quot;{x:Static local:Icons.Save.AsGlyph}&quot; /&gt;
