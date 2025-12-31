@@ -56,5 +56,14 @@ internal static class DiagnosticDescriptors
             DiagnosticSeverity.Warning,
             isEnabledByDefault: true);
 
+    internal static readonly DiagnosticDescriptor MultipleIconPackClassesDetected =
+        new(
+            id: "SUB040",
+            title: "Multiple IconPack Classes Detected",
+            messageFormat: "Only 1 [IconPack] class is allowed in a project",
+            category: "Substrate.IconPack",
+            DiagnosticSeverity.Error,
+            isEnabledByDefault: true);
+
 
 }

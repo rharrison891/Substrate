@@ -15,7 +15,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}">
                         <TextBlock Padding="10"
-                                   Text="&#xE700;"
+                                   Text="{TemplateBinding Glyph}"
                                    FontSize="18"
                                    FontFamily="Segoe MDL2 Assets"
                                    Foreground="{TemplateBinding IconBrush}" />

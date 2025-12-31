@@ -13,13 +13,15 @@ namespace Substrate.Generation.Core.Generator
 {
     internal static class PipelineFactory
     {
-
         internal static void CreatePipelines(IncrementalGeneratorInitializationContext context)
         {
+            // 🔗 Attribute → Rule wiring
             AttributeRegistry.Register(new NotifyAttributeRule());
             AttributeRegistry.Register(new DependencyPropertyAttributeRule());
             AttributeRegistry.Register(new ThemeAttributeRule());
+            AttributeRegistry.Register(new IconPackRule());
 
+            // 🔹 Per-syntax pipelines
             var fieldsRaw =
                 context.CreateDeclarationPipeline<VariableDeclaratorSyntax, IFieldSymbol>()
                        .FilterByRegisteredAttributes();
@@ -32,10 +34,14 @@ namespace Substrate.Generation.Core.Generator
                 context.CreateDeclarationPipeline<ClassDeclarationSyntax, INamedTypeSymbol>()
                        .FilterByRegisteredAttributes();
 
-            // nodes only
+            // 🔹 Node-only streams
             var fieldsPipe = fieldsRaw.Where(t => t.Node is not null).Select((t, _) => t.Node!);
             var methodsPipe = methodsRaw.Where(t => t.Node is not null).Select((t, _) => t.Node!);
             var typesPipe = typesRaw.Where(t => t.Node is not null).Select((t, _) => t.Node!);
+
+            // =====================
+            //  THEME PIPELINE
+            // =====================
 
             var themeNodes =
                 typesRaw
@@ -49,8 +55,7 @@ namespace Substrate.Generation.Core.Generator
                     var output = new List<(ThemeNode? node, Diagnostic? diag)>();
 
                     // Group by logical type
-                    var groups = themes
-                        .GroupBy(t => new { t.Namespace, t.TypeName });
+                    var groups = themes.GroupBy(t => new { t.Namespace, t.TypeName });
 
                     foreach (var g in groups)
                     {
@@ -58,7 +63,7 @@ namespace Substrate.Generation.Core.Generator
                         var first = g.First();
                         output.Add((first, null));
 
-                        // any other theme class with the SAME name → diagnostic
+                        // extra theme classes with same name → diagnostic
                         foreach (var extra in g.Skip(1))
                         {
                             output.Add((
@@ -83,27 +88,86 @@ namespace Substrate.Generation.Core.Generator
                     .Where(t => t.diag is not null)
                     .Select((t, _) => t.diag!);
 
+            // =====================
+            //  ICON PACK PIPELINE
+            // =====================
+
+            var iconNodes =
+                typesRaw
+                    .Where(t => t.Node is IconPackNode)
+                    .Select((t, _) => (IconPackNode)t.Node!)
+                    .Collect();
+
+            var validatedIcons =
+                iconNodes.SelectMany((icons, _) =>
+                {
+                    var output = new List<(IconPackNode? node, Diagnostic? diag)>();
+
+                    var groups = icons.GroupBy(i => new { i.Namespace, i.TypeName });
+
+                    foreach (var g in groups)
+                    {
+                        var first = g.First();
+                        output.Add((first, null));
+
+                        foreach (var extra in g.Skip(1))
+                        {
+                            output.Add((
+                                null,
+                                Diagnostic.Create(
+                                    DiagnosticDescriptors.MultipleIconPackClassesDetected,
+                                    extra.Location,
+                                    extra.TypeName)));
+                        }
+                    }
+
+                    return output;
+                });
+
+            var goodIconNodes =
+                validatedIcons
+                    .Where(t => t.node is not null)
+                    .Select((t, _) => t.node!);
+
+            var iconDiagnostics =
+                validatedIcons
+                    .Where(t => t.diag is not null)
+                    .Select((t, _) => t.diag!);
+
+            // =====================
+            //  DOCUMENTS
+            // =====================
+
+            // fields + methods + type-level features + themes + icons
             var collected = fieldsPipe
                 .Collect()
                 .Combine(methodsPipe.Collect())
                 .Combine(typesPipe.Collect())
-                .Combine(goodThemeNodes.Collect());
+                .Combine(goodThemeNodes.Collect())
+                .Combine(goodIconNodes.Collect());
 
-            var documents = collected.SelectMany(static (quad, _) =>
+            var documents = collected.SelectMany(static (five, _) =>
             {
-                var ((pair, types), themes) = quad;
+                // five = ((((fields, methods), types), themes), icons)
+                var quad = five.Left;   // (((fields, methods), types), themes)
+                var icons = five.Right;  // ImmutableArray<IconPackNode>
 
-                var all = pair.Left
-                    .AddRange(pair.Right)
-                    .AddRange(types)
-                    .AddRange(themes);
+                var ((pair, types), themes) = quad;
+                // pair = (fields, methods)
+
+                var all = pair.Left      // fields
+                    .AddRange(pair.Right) // methods
+                    .AddRange(types)      // type-level nodes (Theme/IconPack/etc)
+                    .AddRange(themes)     // validated themes
+                    .AddRange(icons);     // validated icon packs
 
                 var groups = all.GroupBy(n => new TypeKey(n.Namespace, n.TypeName));
 
                 return groups
-                    .Select(g => DocumentFactory.Create(
-                        g.Key,
-                        g.Cast<SubstrateNode>().ToList()))
+                    .SelectMany(g =>
+                        DocumentFactory.CreateAll(
+                            g.Key,
+                            g.Cast<SubstrateNode>().ToList()))
                     .ToImmutableArray();
             });
 
@@ -114,8 +178,10 @@ namespace Substrate.Generation.Core.Generator
                     spc.AddSource(doc.HintName, doc.Build());
                 });
 
+            // =====================
+            //  DIAGNOSTICS
+            // =====================
 
-            // diagnostics only
             var fieldDiagnostics =
                 fieldsRaw.Select((r, _) => r.Diagnostic).Collect();
 
@@ -130,7 +196,8 @@ namespace Substrate.Generation.Core.Generator
                     fieldDiagnostics,
                     methodDiagnostics,
                     typeDiagnostics,
-                    themeDiagnostics.Collect()!),
+                    themeDiagnostics.Collect()!,
+                    iconDiagnostics.Collect()!),
                 static (spc, diag) => spc.ReportDiagnostic(diag));
         }
 
@@ -152,7 +219,6 @@ namespace Substrate.Generation.Core.Generator
             FilterByRegisteredAttributes<TSymbol>(this IncrementalValuesProvider<TSymbol> pipe)
             where TSymbol : ISymbol
         {
-            
             return pipe.SelectMany(static (symbol, _) =>
             {
                 var results = new List<(SubstrateNode?, Diagnostic?)>();
@@ -172,9 +238,9 @@ namespace Substrate.Generation.Core.Generator
                         var node = rule.TryCreate(
                             symbol,
                             attr,
-                            d => diag = d    // <- capture diagnostic, don’t report yet
-                        );
+                            d => diag = d);
 
+                        // 🔹 IMPORTANT — add one entry PER attribute
                         results.Add((node, diag));
                     }
                 }
@@ -188,18 +254,21 @@ namespace Substrate.Generation.Core.Generator
                 IncrementalValueProvider<ImmutableArray<Diagnostic?>> a,
                 IncrementalValueProvider<ImmutableArray<Diagnostic?>> b,
                 IncrementalValueProvider<ImmutableArray<Diagnostic?>> c,
-                IncrementalValueProvider<ImmutableArray<Diagnostic?>> d)
-                {
-                    return a.Combine(b)
-                            .Combine(c)
-                            .Combine(d)
-                            .SelectMany(static (quad, _) =>
-                                quad.Left.Left.Left
-                                    .Concat(quad.Left.Left.Right)
-                                    .Concat(quad.Left.Right)
-                                    .Concat(quad.Right)
-                                    .Where(d => d is not null)!
-                                    .Cast<Diagnostic>());
-                }
+                IncrementalValueProvider<ImmutableArray<Diagnostic?>> d,
+                IncrementalValueProvider<ImmutableArray<Diagnostic?>> e)
+        {
+            return a.Combine(b)
+                    .Combine(c)
+                    .Combine(d)
+                    .Combine(e)
+                    .SelectMany(static (five, _) =>
+                        five.Left.Left.Left.Left
+                            .Concat(five.Left.Left.Left.Right)
+                            .Concat(five.Left.Left.Right)
+                            .Concat(five.Left.Right)
+                            .Concat(five.Right)
+                            .Where(d => d is not null)!
+                            .Cast<Diagnostic>());
+        }
     }
 }

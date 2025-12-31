@@ -37,4 +37,12 @@ namespace Substrate.Generation.Core.Nodes
         Microsoft.CodeAnalysis.Location? Location,
         IReadOnlyCollection<string> Usings
     ) : SubstrateNode(Namespace, TypeName, Usings);
+
+    public sealed record IconPackNode(
+    string Namespace,
+    string TypeName,
+    string Pack,
+    Microsoft.CodeAnalysis.Location? Location,
+    IReadOnlyCollection<string> Usings
+    ) : SubstrateNode(Namespace, TypeName, Usings);
 }

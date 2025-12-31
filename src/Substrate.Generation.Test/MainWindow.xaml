@@ -10,6 +10,6 @@
         Height="450"
         Width="800">
     <Grid>
-        <controls:MyButton HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <controls:MyButton Icon="Save" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@ using Substrate.Generation.Attributes;
 
 namespace Substrate.Generation.Test
 {
+    
     [Theme]
     public partial class AppTheme
     {
@@ -11,5 +12,10 @@ namespace Substrate.Generation.Test
             { "Accent", "#505050" },
             { "Blue", "#0000ff" }
         };
+    }
+
+    [IconPack]
+    public partial class AppIcons
+    {
     }
 }

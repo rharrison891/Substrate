@@ -6,7 +6,6 @@ using Substrate.Generation.Attributes;
 
 namespace Substrate.Generation.Test
 {
-    
     public partial class TestTheme
     {
     }
