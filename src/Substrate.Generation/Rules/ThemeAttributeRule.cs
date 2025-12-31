@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,7 +13,6 @@ namespace Substrate.Generation.Core.Rules
     {
         public string AttributeName => "Theme";
 
-
         public SubstrateNode? TryCreate(
             ISymbol symbol,
             AttributeData attribute,
@@ -21,16 +22,31 @@ namespace Substrate.Generation.Core.Rules
                 return null;
 
             var ns = type.ContainingNamespace.ToDisplayString();
-            
+
             var colors = ExtractColors(type, report);
             bool usesFallback = colors.Count == 0;
 
-            return new ThemeNode(
+            //
+            // 👇 build the usings the ThemeDocument will need
+            //
+            var usings = new HashSet<string>
+            {
                 ns,
-                type.Name,
-                colors,
-                usesFallback,
-                symbol.Locations.FirstOrDefault());
+                "System",
+                "System.Collections.Generic",
+                "System.Linq",
+                "System.Windows.Markup",
+                "System.Windows.Media"
+            };
+
+            return new ThemeNode(
+                Namespace: ns,
+                TypeName: type.Name,
+                Colors: colors,
+                UsesFallbackPalette: usesFallback,
+                Location: symbol.Locations.FirstOrDefault(),
+                Usings: usings
+            );
         }
 
         private static IFieldSymbol? FindThemeField(INamedTypeSymbol type)
@@ -44,8 +60,8 @@ namespace Substrate.Generation.Core.Rules
             // fallback: walk partials manually
             foreach (var decl in type.DeclaringSyntaxReferences)
             {
-                var syntax = decl.GetSyntax() as ClassDeclarationSyntax;
-                if (syntax is null) continue;
+                if (decl.GetSyntax() is not ClassDeclarationSyntax syntax)
+                    continue;
 
                 foreach (var field in syntax.Members.OfType<FieldDeclarationSyntax>())
                 {
@@ -73,12 +89,9 @@ namespace Substrate.Generation.Core.Rules
             var result = new List<(string Key, int A, int R, int G, int B)>(ThemeDefaults.BasePalette);
 
             var field = FindThemeField(type);
-
             if (field is null)
                 return result;
 
-
-            // Always get the VariableDeclaratorSyntax — works across partials
             var declarator = field.DeclaringSyntaxReferences
                 .Select(r => r.GetSyntax())
                 .OfType<VariableDeclaratorSyntax>()
@@ -87,21 +100,15 @@ namespace Substrate.Generation.Core.Rules
             InitializerExpressionSyntax? initializer = null;
 
             if (declarator?.Initializer?.Value is ObjectCreationExpressionSyntax oce)
-            {
                 initializer = oce.Initializer;
-            }
             else if (declarator?.Initializer?.Value is ImplicitObjectCreationExpressionSyntax ioce)
-            {
                 initializer = ioce.Initializer;
-            }
 
             if (initializer is null)
                 return result;
 
-
             foreach (var expr in initializer.Expressions)
             {
-                // Expect: { "Key", "#RRGGBB" }
                 if (expr is not InitializerExpressionSyntax pair ||
                     pair.Expressions.Count != 2)
                     continue;
@@ -124,7 +131,6 @@ namespace Substrate.Generation.Core.Rules
                     continue;
                 }
 
-                // overwrite defaults if necessary
                 var i = result.FindIndex(c => c.Key == key);
                 if (i >= 0)
                     result[i] = (key, a, r, g, b);

@@ -1,5 +1,6 @@
-﻿using Substrate.Generation.Core.Helpers;
+using Substrate.Generation.Core.Helpers;
 using Substrate.Generation.Core.Nodes;
+
 using System.Text;
 
 namespace Substrate.Generation.Core.Documents

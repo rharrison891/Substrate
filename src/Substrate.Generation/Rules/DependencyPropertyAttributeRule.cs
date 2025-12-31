@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
+
 using Substrate.Generation.Attributes;
 using Substrate.Generation.Core.Nodes;
 
@@ -18,17 +19,17 @@ namespace Substrate.Generation.Core.Rules
 
             var containingType = field.ContainingType;
 
-            // ✅ Ensure the containing type derives from DependencyObject
+            // ⛔ must be on DependencyObject
             if (!StaticUtils.IsOrDerivesFromDependencyObject(containingType))
             {
                 report(Diagnostic.Create(
                     DiagnosticDescriptors.DependencyPropertyNotOnDependencyObject,
                     field.Locations.FirstOrDefault()));
 
-                // Don't generate a DP node for invalid usage
                 return null;
             }
 
+            // ⚠️ Suggest readonly if not readonly
             if (!field.IsReadOnly)
             {
                 report(Diagnostic.Create(
@@ -37,7 +38,27 @@ namespace Substrate.Generation.Core.Rules
                     field.Name));
             }
 
-            // 🔽 your existing arg parsing here
+            // 👇 THIS matters — gather usings for generation
+            var usings = new HashSet<string>
+        {
+            containingType.ContainingNamespace.ToDisplayString(),   // the class
+            "System",
+            "System.Windows"
+        };
+
+            // ⭐⭐ IMPORTANT: include the field TYPE namespace
+            var fieldNs = field.Type.ContainingNamespace?.ToDisplayString();
+            if (!string.IsNullOrWhiteSpace(fieldNs))
+                usings.Add(fieldNs!);
+
+            // (optional but nice) include metadata helpers when callbacks exist
+            if (StaticUtils.GetBool(attribute, nameof(DependencyPropertyAttribute.HasChangeCallback)) ||
+                StaticUtils.GetBool(attribute, nameof(DependencyPropertyAttribute.HasCoerceCallback)))
+            {
+                usings.Add("System.Windows.Data");
+            }
+
+            // 🎛 parse parameters
             var hasChange = StaticUtils.GetBool(attribute, nameof(DependencyPropertyAttribute.HasChangeCallback));
             var hasCoerce = StaticUtils.GetBool(attribute, nameof(DependencyPropertyAttribute.HasCoerceCallback));
             var bindsTwoWay = StaticUtils.GetBool(attribute, nameof(DependencyPropertyAttribute.BindsTwoWayByDefault));
@@ -48,15 +69,14 @@ namespace Substrate.Generation.Core.Rules
                 Namespace: containingType.ContainingNamespace.ToDisplayString(),
                 TypeName: containingType.Name,
                 FieldName: field.Name,
-                FieldType: field.Type.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
+                FieldType: field.Type.ToDisplayString(),
                 HasChangeCallback: hasChange,
                 HasCoerceCallback: hasCoerce,
                 BindsTwoWayByDefault: bindsTwoWay,
                 IsReadOnly: isReadOnly,
-                DefaultValue: defaultValue
+                DefaultValue: defaultValue,
+                Usings: usings
             );
         }
-
-        
     }
 }

@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Substrate.Generation.Test"
+        xmlns:controls="clr-namespace:Substrate.Generation.Test.Controls"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
         Width="800">
-    <Grid Background="{local:ThemeBrush Base=Blue}">
-        <Button Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Click"/>
+    <Grid>
+        <controls:MyButton HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Window>

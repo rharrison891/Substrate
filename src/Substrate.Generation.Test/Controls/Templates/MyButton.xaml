@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Substrate.Generation.Test"
+                    xmlns:controls="clr-namespace:Substrate.Generation.Test.Controls">
+
+    <Style TargetType="{x:Type controls:MyButton}">
+        <Setter Property="Background"
+                Value="{local:ThemeBrush Base=Background}" />
+        <Setter Property="IconBrush"
+                Value="{local:ThemeBrush Base=Primary}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:MyButton}">
+                    <Border CornerRadius="3"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <TextBlock Padding="10"
+                                   Text="&#xE700;"
+                                   FontSize="18"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   Foreground="{TemplateBinding IconBrush}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
