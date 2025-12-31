@@ -25,7 +25,7 @@
     
     
       
-        <title>Icons - Substrate Docs</title>
+        <title>IconPack - Substrate Docs</title>
       
     
     
@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#iconpack" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -105,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Icons
+              IconPack
             
           </span>
         </div>
@@ -418,6 +423,26 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IconPack
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -426,7 +451,7 @@
   <span class="md-ellipsis">
     
   
-    Icons
+    IconPack
   
 
     
@@ -435,6 +460,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-complete-set-of-icons-from-fluenticons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A complete set of Icons from FluentIcons.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-an-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -493,6 +559,38 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-complete-set-of-icons-from-fluenticons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A complete set of Icons from FluentIcons.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-an-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an icon
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -512,9 +610,28 @@
   
 
 
-  <h1>Icons</h1>
-
-
+<h1 id="iconpack">IconPack</h1>
+<h2 id="a-complete-set-of-icons-from-fluenticons">A complete set of Icons from FluentIcons.</h2>
+<p>All of the icons are available through the source generator and can be easily included in your project with a simple <code>[IconPack]</code> attribute.</p>
+<p>This will give you </p>
+<ul>
+<li><code>Icons</code> enum with ≈ 1,500 icons</li>
+<li><code>IconMap</code> dictionary to convert enm to glyph</li>
+<li><code>AsGlyph()</code> extension method</li>
+<li><code>Get()</code> accessor</li>
+</ul>
+<p>To activate the icon pack just simply create a blank class with the <code>[IconPack]</code> attribute.</p>
+<div class="highlight"><pre><span></span><code><span class="na">[IconPack]</span>
+<span class="k">public</span><span class="w"> </span><span class="k">partial</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">AppIcons</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>That's it...The generator will do everything for you, and Icons are available globally in your app.</p>
+<h2 id="using-an-icon">Using an icon</h2>
+<div class="highlight"><pre><span></span><code>&lt;TextBlock FontFamily=&quot;Segoe MDL2 Assets&quot;
+           Text=&quot;{x:Static local:Icons.Save.AsGlyph}&quot; /&gt;
+</code></pre></div>
+<p>or in C#:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">glyph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="n">Save</span><span class="p">.</span><span class="n">AsGlyph</span><span class="p">();</span>
+</code></pre></div>
 
 
 

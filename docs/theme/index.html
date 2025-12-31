@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#theme" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -390,6 +395,26 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theme
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -407,6 +432,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-code-first-theming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple, code first theming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-theme-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime theme manipulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -427,7 +537,7 @@
   <span class="md-ellipsis">
     
   
-    Icons
+    IconPack
   
 
     
@@ -493,6 +603,82 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-code-first-theming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple, code first theming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-theme-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime theme manipulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -512,9 +698,65 @@
   
 
 
-  <h1>Theme</h1>
-
-
+<h1 id="theme">Theme</h1>
+<h2 id="simple-code-first-theming">Simple, code first theming</h2>
+<p>You can easily theme your entire app from a simple dictionTheme your entire app from a simple dictionary - no XAML resoource dictionaries to manage.</p>
+<p>Everything is generated and stays in code.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Create a public partial class, and add the <code>[Theme]</code> attribute and define your color dictionary.</p>
+<div class="highlight"><pre><span></span><code><span class="na">[Theme]</span>
+<span class="k">public</span><span class="w"> </span><span class="k">partial</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">AppTheme</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">Dictionary</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_baseColors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Background&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#101010&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Accent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#505050&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This generates</p>
+<ul>
+<li><code>ThemeColor</code> enum</li>
+<li><code>GetBrush()</code> </li>
+<li><code>GetColor()</code> </li>
+<li><code>SetColor()</code> </li>
+<li><code>ThemeBrush</code> XAML markup extension</li>
+</ul>
+<h2 id="defaults">Defaults</h2>
+<p>You don't have to define everything. A built-in palette is generated automatically - override only what you need:</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">G</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">BasePalette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Background&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Foreground&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">220</span><span class="p">,</span><span class="w"> </span><span class="mi">220</span><span class="p">,</span><span class="w"> </span><span class="mi">220</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Primary&quot;</span><span class="p">,</span><span class="w">    </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">215</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Secondary&quot;</span><span class="p">,</span><span class="w">  </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w"> </span><span class="mi">48</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Accent&quot;</span><span class="p">,</span><span class="w">     </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">153</span><span class="p">,</span><span class="w"> </span><span class="mi">204</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Border&quot;</span><span class="p">,</span><span class="w">     </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">,</span><span class="w">      </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">232</span><span class="p">,</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="mi">35</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Warning&quot;</span><span class="p">,</span><span class="w">    </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">185</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Success&quot;</span><span class="p">,</span><span class="w">    </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">124</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+<span class="w">    </span><span class="p">};</span>
+</code></pre></div>
+<h2 id="basic-usage">Basic usage</h2>
+<div class="highlight"><pre><span></span><code>&lt;Border Background=&quot;{local:ThemeBrush Base=Background}&quot;
+        BorderBrush=&quot;{local:ThemeBrush Base=Accent}&quot; /&gt;
+</code></pre></div>
+<h2 id="advanced-usage">Advanced usage</h2>
+<p>You can adjust alpha and brightness directly in XAML:</p>
+<div class="highlight"><pre><span></span><code>&lt;Border Background=&quot;{local:ThemeBrush Base=Background, Alpha=0.5}&quot;
+        BorderBrush=&quot;{local:ThemeBrush Base=Accent, Brightness=-50}&quot; /&gt;
+</code></pre></div>
+<ul>
+<li>Alpha - 0 (transparent) -&gt; 1 (opaque)</li>
+<li>Brightness - negative = darker, positive = lighter (clamped 0-255)</li>
+</ul>
+<h2 id="runtime-theme-manipulation">Runtime theme manipulation</h2>
+<p>Change colors at runtime - everything updates automatically:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">AppTheme</span><span class="p">.</span><span class="n">SetColor</span><span class="p">(</span><span class="n">ThemeColor</span><span class="p">.</span><span class="n">Background</span><span class="p">,</span><span class="w"> </span><span class="n">Colors</span><span class="p">.</span><span class="n">Blue</span><span class="p">);</span>
+</code></pre></div>
+No resource dictionaries. No XAML updates. </p>
+<p>Just one line.</p>
 
 
 

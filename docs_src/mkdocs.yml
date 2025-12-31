@@ -24,7 +24,7 @@ nav:
       - Notify: notify.md
       - Dependency Property: dependency-property.md
       - Theme: theme.md
-      - Icons: icons.md
+      - IconPack: icons.md
       - Fonts: fonts.md
   
 site_description: Automating the boring parts of WPF development.
